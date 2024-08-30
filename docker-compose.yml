@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: postgres
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=test
+      - PG_DATA=/data/postgres
+    volumes:
+      - ./data/pg:/data/postgres
+    networks:
+      - sky-net
+
+  api-example:
+    container_name: api-nestjs
+    image: api-example:0.0.2
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=postgresql://postgres:docker@postgres:5432/test?schema=public
+    depends_on:
+      - postgres
+    networks:
+      - sky-net
+
+networks:
+  sky-net:
+    name: sky-net
+    external: true
+    driver: bridge

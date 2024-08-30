@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3000
+
+
+# @name createUser
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Bruno Valero",
+  "email": "bruno@email.com"
+}
+
+###
+
+# @name updateUser
+PUT {{baseUrl}}/users/afdb4103-c9e6-42ad-a299-910f28ad9dec
+Content-Type: application/json
+
+{
+  "name": "Bruno Fernandes Valero"
+}
+
+###
